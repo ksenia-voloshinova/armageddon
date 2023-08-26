@@ -1,0 +1,25 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  background: #000;
+  color: #fff;
+  font-family: 'Helvetica', sans-serif;
+}
+a{
+  text-decoration: none;
+  color:#fff
+}
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: 400 ;
+  src: url('../public/fonts/helvetica_regular.otf');
+}
+@font-face {
+  font-family: 'Helvetica';
+  font-weight: 700 ;
+  src: url('../public/fonts/helvetica_bold.otf');
+}
+

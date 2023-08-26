@@ -1,0 +1,29 @@
+.heading{
+
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  margin-bottom: 8px;
+}
+
+.wrapp_content{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  background-image: url("../public/img/earth.png");
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-attachment: fixed;
+  align-items: flex-start;
+  @media (max-width: 768px) {
+    grid-template-columns: 72px 1fr;
+    background-position-x: -237px;
+  }
+
+}
+.two_col{
+  grid-column: 2;
+
+}

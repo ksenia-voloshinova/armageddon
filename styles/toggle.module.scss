@@ -1,0 +1,20 @@
+.button{
+  border: none;
+  color:#fff;
+  font-size: 16px;
+  background-color: rgb(0,0,0,0);
+  text-decoration-line: underline;
+  padding: 0 6px;
+
+  &_active{
+    font-weight:700;
+    text-decoration-line: none;
+
+  }
+  &_border_right{
+    border-right: 1px solid #fff;
+  }
+}
+.wrapp_button{
+  margin-bottom: 24px;
+}
