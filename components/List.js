@@ -8,7 +8,6 @@ const List = ({asteroids, activeUnit}) => {
             <ul className={styles.wrappList}>
                 {asteroids.map(asteroid =>
                         <AsteroidItem asteroid={asteroid} activeUnit={activeUnit}/>
-
                 )}
             </ul>
         </>

@@ -6,8 +6,8 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import styles from '../styles/index.module.scss'
 import CartComponent from "../components/CartComponent";
-import Image from "next/image";
-import earth from "../public/img/earth.png"
+import ContainerContentCenter from "../components/ContainerContentCenter";
+
 
 const  Index = ({asteroidsData}) => {
 
@@ -15,7 +15,6 @@ const  Index = ({asteroidsData}) => {
     const [activeUnit, setActiveUnit] = useState('kilometers');
     const [fetching, setFetching] = useState(false);
     const [nextLink, setNextLink] = useState(asteroidsData.links.next);
-    console.log(asteroids)
     const handleMissDistance = (unit) => {
         setActiveUnit(unit);
     };
@@ -31,7 +30,8 @@ const  Index = ({asteroidsData}) => {
             if (fetching) {
                 const { data } = await axios.get(nextLink);
                 const nearEarthObjects = Object.values(data.near_earth_objects).flat();
-                setAsteroids(prevAsteroids => [...prevAsteroids, ...nearEarthObjects]);                setNextLink(data.links.next);
+                setAsteroids(prevAsteroids => [...prevAsteroids, ...nearEarthObjects]);
+                setNextLink(data.links.next);
                 setFetching(false);
             }
         };
@@ -48,19 +48,12 @@ const  Index = ({asteroidsData}) => {
 
     return (
         <MainContainer>
-            <div>
-
-                <section className={styles.wrapp_content}>
-                    <div className={styles.two_col}>
-                        <div className={styles.heading}>Ближайшие подлёты астероидов</div>
-                        <Toggle handleToggle={handleMissDistance} activeUnit={activeUnit}/>
-                        <List asteroids={asteroids} activeUnit={activeUnit}/>
-                    </div>
-
-                    <CartComponent/>
-                </section>
-
-            </div>
+            <ContainerContentCenter>
+                <div className={styles.heading}>Ближайшие подлёты астероидов</div>
+                <Toggle handleToggle={handleMissDistance} activeUnit={activeUnit}/>
+                <List asteroids={asteroids} activeUnit={activeUnit}/>
+            </ContainerContentCenter>
+            <CartComponent/>
         </MainContainer>
     );
 };
@@ -69,6 +62,7 @@ export default Index;
 
 export const getServerSideProps = async () => {
     const { today, tomorrow } = getDaysForUrl();
+    // todo: Воняет говной API key - вынести в .env файл
     const asteroidsData = await axios.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${tomorrow}&api_key=6Ay6VXeLSliBmJ0Ti2arrFq330S3bfp4cFGQnb3i`);
     return {
         props: {

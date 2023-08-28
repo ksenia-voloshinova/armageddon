@@ -5,12 +5,14 @@ import Image from "next/image";
 import asteroid_img from "../public/img/pngegg_2.png";
 import {CartContext} from "./CartProvider";
 import Link from "next/link";
+import {getDiameter} from "../helpers/getDiameter";
 
 function AsteroidItem({asteroid, activeUnit}) {
-    const diameter = (asteroid.estimated_diameter.meters.estimated_diameter_min + asteroid.estimated_diameter.meters.estimated_diameter_max) / 2;
+    const diameter = getDiameter(asteroid)
     const {  addAsteroid, listCart } = useContext(CartContext);
-    console.log(listCart)
+
     let width;
+    // todo: Воняет говной - избавиться от трех if-ов
     if (Math.round(diameter) <= 100) {
         width = 20;
     } else if (Math.round(diameter) > 100 && Math.round(diameter) <= 400) {
@@ -18,7 +20,6 @@ function AsteroidItem({asteroid, activeUnit}) {
     } else {
         width = 42;
     }
-
 
     const handleClick = (item) => {
         addAsteroid(item);
@@ -38,7 +39,7 @@ function AsteroidItem({asteroid, activeUnit}) {
                     <Image width={width} src={asteroid_img} alt="image asteroid"/>
                     <div>
                         <div className={styles.name}>{asteroid.name}</div>
-                        <div className={styles.diameter}>&#216; {Math.round(diameter)} м</div>
+                        <div className={styles.diameter}>&#216; {diameter} м</div>
                     </div>
                 </div>
             </Link>
@@ -47,7 +48,7 @@ function AsteroidItem({asteroid, activeUnit}) {
                     className={styles.button}
                     onClick={() => handleClick(asteroid)}
                 >
-                    {isOrdered ? "заказать" : "в корзине"}
+                    {!listCart.includes(asteroid) ? "заказать" : "в корзине"}
                 </button>
                 {asteroid.is_potentially_hazardous_asteroid ?
                     <div className={styles.icon}>

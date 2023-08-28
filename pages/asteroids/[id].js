@@ -1,7 +1,6 @@
 import {useRouter} from "next/router";
 import MainContainer from "../../components/MainContainer";
 import axios from "axios";
-import Image from 'next/image'
 
 export default function User({asteroid}) {
     const {query} = useRouter()
