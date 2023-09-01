@@ -1,5 +1,4 @@
 import {createContext, useState} from 'react';
-import list from "./List";
 
 export const CartContext = createContext();
 

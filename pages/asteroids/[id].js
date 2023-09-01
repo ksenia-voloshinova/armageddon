@@ -1,28 +1,28 @@
 import {useRouter} from "next/router";
 import MainContainer from "../../components/MainContainer";
+import ContainerContentCenter from "../../components/ContainerContentCenter";
 import axios from "axios";
-
+import styles from "../../styles/asteroid.module.scss"
 export default function User({asteroid}) {
     const {query} = useRouter()
+    const diameter = asteroid.estimated_diameter
     return (
 
         <MainContainer keywords={query.id}>
-            <div>
+            <ContainerContentCenter>
                 {asteroid ? (
                     <div>
-                        <h2>Asteroid Information</h2>
-                        <p>Name: {asteroid.name}</p>
-                        <p>NASA JPL URL: <a href={asteroid.nasa_jpl_url}>{asteroid.nasa_jpl_url}</a></p>
-                        <p>Estimated Diameter (kilometers): {asteroid.estimated_diameter.kilometers.estimated_diameter_min} - {asteroid.estimated_diameter.kilometers.estimated_diameter_max}</p>
-                        <p>Estimated Diameter (meters): {asteroid.estimated_diameter.meters.estimated_diameter_min} - {asteroid.estimated_diameter.meters.estimated_diameter_max}</p>
-                        <p>Estimated Diameter (miles): {asteroid.estimated_diameter.miles.estimated_diameter_min} - {asteroid.estimated_diameter.miles.estimated_diameter_max}</p>
-                        <p>Estimated Diameter (feet): {asteroid.estimated_diameter.feet.estimated_diameter_min} - {asteroid.estimated_diameter.feet.estimated_diameter_max}</p>
-                        <p>Is Potentially Hazardous Asteroid: {asteroid.is_potentially_hazardous_asteroid ? 'Yes' : 'No'}</p>
+                        <h2 className={styles.heading}>Asteroid Information</h2>
+                        <p className={styles.paragraph}>Name: {asteroid.name}</p>
+                        <p className={styles.paragraph}>NASA JPL URL: <a href={asteroid.nasa_jpl_url}>{asteroid.nasa_jpl_url}</a></p>
+                        <p className={styles.paragraph}>Estimated Diameter (kilometers): {diameter.kilometers.estimated_diameter_min} - {diameter.kilometers.estimated_diameter_max}</p>
+                        <p className={styles.paragraph}>Estimated Diameter (miles): {diameter.miles.estimated_diameter_min} - {diameter.miles.estimated_diameter_max}</p>
+                        <p className={styles.paragraph} >Is Potentially Hazardous Asteroid: {asteroid.is_potentially_hazardous_asteroid ? 'Yes' : 'No'}</p>
                     </div>
                 ) : (
                     <p>Loading asteroid data...</p>
                 )}
-            </div>
+            </ContainerContentCenter>
         </MainContainer>
     )
 };

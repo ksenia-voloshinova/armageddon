@@ -6,20 +6,11 @@ import asteroid_img from "../public/img/pngegg_2.png";
 import {CartContext} from "./CartProvider";
 import Link from "next/link";
 import {getDiameter} from "../helpers/getDiameter";
+import {calculateImageWidth} from "../helpers/calculateImageWidth";
 
 function AsteroidItem({asteroid, activeUnit}) {
     const diameter = getDiameter(asteroid)
     const {  addAsteroid, listCart } = useContext(CartContext);
-
-    let width;
-    // todo: Воняет говной - избавиться от трех if-ов
-    if (Math.round(diameter) <= 100) {
-        width = 20;
-    } else if (Math.round(diameter) > 100 && Math.round(diameter) <= 400) {
-        width = 33;
-    } else {
-        width = 42;
-    }
 
     const handleClick = (item) => {
         addAsteroid(item);
@@ -36,7 +27,7 @@ function AsteroidItem({asteroid, activeUnit}) {
                         {Math.floor(asteroid.close_approach_data[0].miss_distance[activeUnit])}
                         {activeUnit === "kilometers" ? " км" : " лунные орбиты" }
                     </div>
-                    <Image width={width} src={asteroid_img} alt="image asteroid"/>
+                    <Image width={calculateImageWidth(diameter)} src={asteroid_img} alt="image asteroid"/>
                     <div>
                         <div className={styles.name}>{asteroid.name}</div>
                         <div className={styles.diameter}>&#216; {diameter} м</div>
